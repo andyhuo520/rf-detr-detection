@@ -1,0 +1,28 @@
+{
+  "name": "rf-detr-detection",
+  "version": "1.0.0",
+  "description": "基于 RF-DETR 的浏览器端实时目标检测应用",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "object-detection",
+    "rf-detr",
+    "transformers.js",
+    "webgpu",
+    "computer-vision",
+    "ai",
+    "machine-learning"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@huggingface/transformers": "^3.1.2"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
