@@ -15,6 +15,8 @@
 
 ---
 
+<img width="1104" height="561" alt="截屏2026-02-18 01 20 03" src="https://github.com/user-attachments/assets/53b70960-ab02-4e74-9c92-a2e4e9fa75e3" />
+
 ## ✨ 特性
 
 - 🚀 **完全客户端运行** - 无需服务器，保护用户隐私
