@@ -1,4 +1,4 @@
-import { pipeline } from '@huggingface/transformers';
+import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.1.2';
 
 // ==================== 多语言支持 ====================
 const i18n = {
@@ -769,14 +769,30 @@ async function main() {
     statusSub.textContent = t('downloading');
 
     try {
-        detector = await pipeline('object-detection', 'onnx-community/rfdetr_medium-ONNX', { device: 'webgpu', dtype: 'fp32' });
+        detector = await pipeline('object-detection', 'onnx-community/rfdetr_medium-ONNX', {
+            device: 'webgpu',
+            dtype: 'fp32',
+            progress_callback: (progress) => {
+                if (progress.status === 'downloading') {
+                    const percent = progress.progress ? progress.progress.toFixed(1) : 0;
+                    statusSub.textContent = `${t('downloading')} ${percent}%`;
+                } else if (progress.status === 'loading') {
+                    statusText.textContent = t('compiling');
+                    statusSub.textContent = t('warmingUp');
+                }
+            }
+        });
         statusText.textContent = t('compiling');
         statusSub.textContent = t('warmingUp');
         inputCtx.drawImage(video, 0, 0, inputCanvas.width, inputCanvas.height);
         await detector(inputCanvas, { threshold: 0.5, percentage: true });
         statusOverlay.style.opacity = '0';
         setTimeout(() => statusOverlay.style.display = 'none', 300);
-    } catch (e) { showError(t('modelError'), e.message); throw e; }
+    } catch (e) {
+        console.error('Model loading error:', e);
+        showError(t('modelError'), e.message);
+        throw e;
+    }
 
     requestAnimationFrame(loop);
 }
